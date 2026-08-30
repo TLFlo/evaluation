@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'features/auth/presentation/pages/login_page.dart';
-import 'features/surveillance/presentation/pages/exam_room_page.dart';
-
+//import 'features/surveillance/presentation/pages/exam_room_page.dart';
+//import 'features/surveillance/presentation/pages/presence_page.dart';
+import 'features/scolarite/presentation/page/exams_to_grade_page.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Scolarity',
       theme: AppTheme.lightTheme,
       
-       home: const ExamRoomPage(roomNumber: '2',examName: "big data",className: "M1 GID"),
+      home: const ExamsToGradePage(),
     );
   }
 }

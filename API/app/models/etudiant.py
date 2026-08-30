@@ -1,47 +1,89 @@
 from datetime import date
 from typing import TYPE_CHECKING
-from sqlalchemy import String, Date, Integer
+
+from sqlalchemy import String, Date, ForeignKey, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-# mapped: type de l'objet dans python, cad dans le code
-# mapped_column: type de champs dans postgres, psycogfait la conversion Strinng==>Varchar dans la base de donnees
 
 from app.core.database import Base
-from app.enum.niveau import Niveau
+from app.enums.groupe_exam import GroupeExamEnum
 
 if TYPE_CHECKING:
     from app.models.participation import ParticipationExamen
+    from app.models.classe import Classe
 
 
 class Etudiant(Base):
     __tablename__ = "etudiant"
 
-    matr: Mapped[str] = mapped_column(String(10), primary_key=True)
+    matr: Mapped[str] = mapped_column(
+        String(10),
+        primary_key=True
+    )
 
-    nom: Mapped[str] = mapped_column(String(50), nullable=False)
+    nom: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False
+    )
 
-    prenom: Mapped[str] = mapped_column(String(150), nullable=True)
+    prenom: Mapped[str | None] = mapped_column(
+        String(150),
+        nullable=True
+    )
 
-    date_naissance: Mapped[date] = mapped_column(Date, nullable=False)
+    date_naissance: Mapped[date] = mapped_column(
+        Date,
+        nullable=False
+    )
 
-    lieu_naissance: Mapped[str] = mapped_column(String(50), nullable=False)
+    lieu_naissance: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False
+    )
 
-    num_cin: Mapped[str] = mapped_column(String(12), unique=True)
+    num_cin: Mapped[str] = mapped_column(
+        String(12),
+        unique=True
+    )
 
-    date_cin: Mapped[date] = mapped_column(Date)
+    date_cin: Mapped[date | None] = mapped_column(
+        Date,
+        nullable=True
+    )
 
-    lieu_cin: Mapped[str] = mapped_column(String(50))
+    lieu_cin: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True
+    )
 
-    mention: Mapped[str] = mapped_column(String(4))
+    email: Mapped[str] = mapped_column(
+        String(150),
+        unique=True,
+        nullable=False
+    )
 
-    parcours: Mapped[str] = mapped_column(String(3))
+    chemin_photo: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True
+    )
 
-    niveau: Mapped[Niveau] = mapped_column(Integer)
+    chemin_embedding: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True
+    )
 
-    email: Mapped[str] = mapped_column(String(150), unique=True, nullable=False)
+    groupe_exam: Mapped[GroupeExamEnum] = mapped_column(
+        Enum(GroupeExamEnum),
+        nullable=True
+    )
+    # Classe de l'étudiant
+    classe_id: Mapped[int] = mapped_column(
+        ForeignKey("classe.id"),
+        nullable=False
+    )
 
-    chemin_photo: Mapped[str | None] = mapped_column(String(255), nullable=True)
-
-    chemin_embedding: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    classe: Mapped["Classe"] = relationship(
+        back_populates="etudiants"
+    )
 
     participations: Mapped[list["ParticipationExamen"]] = relationship(
         back_populates="etudiant"

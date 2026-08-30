@@ -3,7 +3,7 @@ from sqlalchemy import String, ForeignKey, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
-from app.enum.salle import SalleEnum
+from app.enums.salle import SalleEnum
 
 if TYPE_CHECKING:
     from app.models.participation import ParticipationExamen
