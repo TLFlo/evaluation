@@ -15,75 +15,35 @@ if TYPE_CHECKING:
 class Etudiant(Base):
     __tablename__ = "etudiant"
 
-    matr: Mapped[str] = mapped_column(
-        String(10),
-        primary_key=True
-    )
+    matr: Mapped[str] = mapped_column(String(10), primary_key=True)
 
-    nom: Mapped[str] = mapped_column(
-        String(50),
-        nullable=False
-    )
+    nom: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    prenom: Mapped[str | None] = mapped_column(
-        String(150),
-        nullable=True
-    )
+    prenom: Mapped[str | None] = mapped_column(String(150), nullable=True)
 
-    date_naissance: Mapped[date] = mapped_column(
-        Date,
-        nullable=False
-    )
+    date_naissance: Mapped[date] = mapped_column(Date, nullable=False)
 
-    lieu_naissance: Mapped[str] = mapped_column(
-        String(50),
-        nullable=False
-    )
+    lieu_naissance: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    num_cin: Mapped[str] = mapped_column(
-        String(12),
-        unique=True
-    )
+    num_cin: Mapped[str] = mapped_column(String(12), unique=True)
 
-    date_cin: Mapped[date | None] = mapped_column(
-        Date,
-        nullable=True
-    )
+    date_cin: Mapped[date | None] = mapped_column(Date, nullable=True)
 
-    lieu_cin: Mapped[str | None] = mapped_column(
-        String(50),
-        nullable=True
-    )
+    lieu_cin: Mapped[str | None] = mapped_column(String(50), nullable=True)
 
-    email: Mapped[str] = mapped_column(
-        String(150),
-        unique=True,
-        nullable=False
-    )
+    email: Mapped[str] = mapped_column(String(150), unique=True, nullable=False)
 
-    chemin_photo: Mapped[str | None] = mapped_column(
-        String(255),
-        nullable=True
-    )
+    chemin_photo: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
-    chemin_embedding: Mapped[str | None] = mapped_column(
-        String(255),
-        nullable=True
-    )
+    chemin_embedding: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
     groupe_exam: Mapped[GroupeExamEnum] = mapped_column(
-        Enum(GroupeExamEnum),
-        nullable=True
+        Enum(GroupeExamEnum), nullable=True
     )
     # Classe de l'étudiant
-    classe_id: Mapped[int] = mapped_column(
-        ForeignKey("classe.id"),
-        nullable=False
-    )
+    classe_id: Mapped[int] = mapped_column(ForeignKey("classe.id"), nullable=False)
 
-    classe: Mapped["Classe"] = relationship(
-        back_populates="etudiants"
-    )
+    classe: Mapped["Classe"] = relationship(back_populates="etudiants")
 
     participations: Mapped[list["ParticipationExamen"]] = relationship(
         back_populates="etudiant"

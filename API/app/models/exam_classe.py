@@ -9,22 +9,10 @@ class ExamenClasse(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    examen_id: Mapped[int] = mapped_column(
-        ForeignKey("examen.id"),
-        nullable=False
-    )
+    examen_id: Mapped[int] = mapped_column(ForeignKey("examen.id"), nullable=False)
 
-    classe_id: Mapped[int] = mapped_column(
-        ForeignKey("classe.id"),
-        nullable=False
-    )
+    classe_id: Mapped[int] = mapped_column(ForeignKey("classe.id"), nullable=False)
 
-    examen = relationship(
-        "Examen",
-        back_populates="classes_assoc"
-    )
+    examen = relationship("Examen", back_populates="classes_assoc")
 
-    classe = relationship(
-        "Classe",
-        back_populates="examens_assoc"
-    )
+    classe = relationship("Classe", back_populates="examens_assoc")

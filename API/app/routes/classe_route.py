@@ -6,22 +6,16 @@ from app.models.classe import Classe
 from app.schemas.classe import ClasseCreate, ClasseResponse
 
 
-router = APIRouter(
-    prefix="/classes",
-    tags=["Classes"]
-)
+router = APIRouter(prefix="/classes", tags=["Classes"])
 
 
 @router.post("/")
-def create_classe(
-    classe_data: ClasseCreate,
-    db: Session = Depends(get_db)
-):
+def create_classe(classe_data: ClasseCreate, db: Session = Depends(get_db)):
     classe = Classe(
         mention=classe_data.mention,
         parcours=classe_data.parcours,
         niveau=classe_data.niveau,
-        numero_groupe=classe_data.numero_groupe
+        numero_groupe=classe_data.numero_groupe,
     )
 
     db.add(classe)
@@ -29,6 +23,7 @@ def create_classe(
     db.refresh(classe)
 
     return classe
+
 
 @router.get("/", response_model=list[ClasseResponse])
 def get_classes(db: Session = Depends(get_db)):

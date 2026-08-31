@@ -9,6 +9,7 @@ class ClasseCreate(BaseModel):
     niveau: Niveau
     numero_groupe: int
 
+
 class ClasseResponse(BaseModel):
     id: int
     mention: str
@@ -16,6 +17,4 @@ class ClasseResponse(BaseModel):
     niveau: Niveau
     numero_groupe: int
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}

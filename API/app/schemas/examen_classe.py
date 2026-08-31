@@ -6,6 +6,4 @@ class ExamenClasseResponse(BaseModel):
     examen_id: int
     classe_id: int
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}

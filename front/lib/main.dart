@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 //import 'features/surveillance/presentation/pages/exam_room_page.dart';
 //import 'features/surveillance/presentation/pages/presence_page.dart';
 import 'features/scolarite/presentation/page/exams_to_grade_page.dart';
+//import 'features/surveillance/presentation/pages/surveillance_page.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,7 +20,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Scolarity',
       theme: AppTheme.lightTheme,
-      
+      // home: const ExamRoomPage(
+      //   roomNumber: 'A101',
+      //   examName: 'Algèbre linéaire',
+      //   className: 'M1 GID',
+      // ),
+     // home: const SurveillancePage(),
       home: const ExamsToGradePage(),
     );
   }
